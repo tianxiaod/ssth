@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiandd.ssth.mapper.mysql.SsthMapper">
+    <resultMap id="resultUser" type="com.tiandd.ssth.entity.User">
+        <result column="ID" property="id"/>
+        <result column="USERNAME" property="userName"/>
+        <result column="PASSWORD" property="passWord"/>
+        <result column="OPENTIME" property="openTime"/>
+        <result column="EXPDATE" property="expTime"/>
+        <result column="EFFDATE" property="effTime"/>
+    </resultMap>
+    <select id="selectUser" resultMap="resultUser">
+        select ID,USERNAME,'XXXXX' as PASSWORD,OPENTIME,EXPDATE,EFFDATE
+        from users where USERNAME=#{params.userName} and PASSWORD=#{params.passw}
+    </select>
+    <select id="selectContent" resultType="com.tiandd.ssth.VO.ContentDataVO">
+        select a.id,b.username,a.create_time as createtime,a.content
+        from content a join users b on (a.user_id=b.id)
+        order by a.create_time desc
+    </select>
+    <insert id="insertUser" parameterType="com.tiandd.ssth.entity.User">
+        insert into users(USERNAME,PASSWORD,OPENTIME,EFFDATE)
+        select #{params.userName},#{params.passWord},#{params.openTime},#{params.effTime}
+        from dual where not exists (select 1 from users a where a.username=#{params.userName})
+    </insert>
+    <insert id="insertContent" parameterType="com.tiandd.ssth.entity.Content">
+        insert into content(USER_ID, CREATE_TIME, CONTENT, STATUS)
+        values (#{params.userId},#{params.createTime},#{params.content},#{params.status})
+    </insert>
+    <select id="selectsequ" resultType="int">
+        select SEQ_POLICY_ID.nextval
+    </select>
+</mapper>

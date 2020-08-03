@@ -1,0 +1,47 @@
+server:
+  port: 3682
+
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    check-template-location: true
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  datasource:
+    mysql:
+      #      url: jdbc:mysql://64.64.236.137:3306/mysql?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      #      username: root
+      #      password: Root123@
+      url: jdbc:mysql://localhost:3306/dd
+      username: dd
+      password: dd
+      driver-class-name: com.mysql.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      initialSize: 10
+      minIdle: 10
+      maxActive: 200
+      minEvictableIdleTimeMillis: 180000
+      testOnBorrow: false
+      testWhileIdle: true
+      removeAbandoned: true
+      removeAbandonedTimeout: 1800
+      logAbandoned: true
+    druid:
+      validationQuery: SELECT 1 FROM DUAL
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 100
+#    oracle:
+#      type: com.alibaba.druid.pool.DruidDataSource
+#      driver-class-name: oracle.jdbc.OracleDriver
+#      url: jdbc:oracle:thin:@127.0.0.1:1521:XE
+#      username: dd
+#      password: dd
+
+mybatis-plus:
+  type-aliases-package: com.tiandd.ssth.entity
+
+
+

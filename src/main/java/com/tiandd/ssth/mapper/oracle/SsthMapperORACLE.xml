@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiandd.ssth.mapper.oracle.SsthMapperORACL">
+    <resultMap id="resultUser" type="com.tiandd.ssth.entity.User">
+        <result column="USERNAME" property="userName"/>
+        <result column="PASSWORD" property="passWord"/>
+        <result column="OPENTIME" property="openTime"/>
+        <result column="EXPDATE" property="expTime"/>
+        <result column="EFFDATE" property="effTime"/>
+    </resultMap>
+    <select id="selectUser" resultMap="resultUser">
+        select USERNAME,'******' as PASSWORD,OPENTIME,EXPDATE,EFFDATE
+        from users where USERNAME=#{params.userName} and PASSWORD=#{params.passw}
+    </select>
+</mapper>
